@@ -84,6 +84,13 @@
 			<version>${jetbrains.annotations.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+        <!-- Tradutor para internacionalização das mensagens -->
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>78.2</version>
+        </dependency>
 	</dependencies>
 
 	<build>
