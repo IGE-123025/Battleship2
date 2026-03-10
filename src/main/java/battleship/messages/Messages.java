@@ -3,6 +3,9 @@ package battleship.messages;
 import com.ibm.icu.text.MessageFormat;
 import java.util.Locale;
 
+/**
+ * Class that defines international messages based on selected language
+ */
 public class Messages {
 
     private static Locale locale = Locale.getDefault();
@@ -17,75 +20,101 @@ public class Messages {
         Messages.locale = locale;
     }*/
 
+    public static Locale LOCALE() {
+        return locale;
+    }
+
     public static void setLocale(String loc) {
         locale = Locale.of(loc);
         System.out.println("[DEBUG] Locale: " + locale.getLanguage());
     }
 
+    /**
+     * Function that returns the message to be sent when the game is terminated in the current language
+     * @return String goodbye message
+     */
     public static String goodbyeMessage() {
         String pattern;
 
         switch (locale.getLanguage()) {
             case "en":
-                pattern = "Good Sailing!";
-                break;
+                return "Good Sailing!";
             case "pt":
-                pattern = "Bons ventos!";
-                break;
+                return "Bons ventos!";
             default:
-                pattern = "Bons ventos!";
+                return "Bons ventos!";
         }
 
-        return pattern;
+        //return pattern;
     }
 
+    /**
+     * Function that returns the message for when an invalid input is given in the menu in the current language
+     * @return String invalid command message
+     */
     public static String invalidCommand() {
         String pattern;
 
         switch (locale.getLanguage()) {
             case "en":
-                pattern = "Invalid command!";
-                break;
+                return "Invalid command!";
             case "pt":
-                pattern = "Que comando é esse??? Repete ...";
-                break;
+                return "Que comando é esse??? Repete ...";
             default:
-                pattern = "Que comando é esse??? Repete ...";
+                return "Que comando é esse??? Repete ...";
         }
 
-        return pattern;
+        //return pattern;
     }
 
     /**
      * This function returns the caption for the game board in the current message language
-     * @param markers - markers should be in the following order:
-     *                markers[0] = SHIP_MARKER;
-     *                markers[1] = SHIP_ADJACENT_MARKER;
-     *                markers[2] = EMPTY_MARKER;
-     *                markers[3] = SHOT_SHIP_MARKER;
-     *                markers[4] = SHOT_WATER_MARKER;
-     * @return String[size: 3] containing the 3 string that comprise the caption message
+     * @param shipMarker - symbol for ships
+     * @param shipAdjacentMarker - symbol for borders
+     * @param emptyMarker - symbol for empty slots
+     * @param shotShipMarker - symbol for hit (shot that hit a ship)
+     * @param shotWaterMarker - symbol for missed shot (shot that hit water)
+     * @return String[size:3] containing the content of the board caption
      */
     public static String[] boardCaptions(char shipMarker, char shipAdjacentMarker, char emptyMarker, char shotShipMarker, char shotWaterMarker) {
         String[] pattern;
 
         switch (locale.getLanguage()) {
             case "en":
-               pattern = new String[]{"          CAPTION",
+               return new String[]{"          CAPTION",
                        "'" + shipMarker + "'->ship, '" + shipAdjacentMarker + "'->ship adjacent, '" + emptyMarker + "'->water",
                        "'" + shotShipMarker + "'->Hit, '" + shotWaterMarker + "'->Missed shot"};
-               break;
             case "pt":
-                pattern = new String[]{"          LEGENDA",
+                return new String[]{"          LEGENDA",
                         "'" + shipMarker + "'->navio, '" + shipAdjacentMarker + "'->adjacente a navio, '" + emptyMarker + "'->água",
                         "'" + shotShipMarker + "'->Tiro certeiro, '" + shotWaterMarker + "'->Tiro na água"};
-                break;
             default:
-                pattern = new String[]{"          LEGENDA",
+                return new String[]{"          LEGENDA",
                         "'" + shipMarker + "'->navio, '" + shipAdjacentMarker + "'->adjacente a navio, '" + emptyMarker + "'->água",
                         "'" + shotShipMarker + "'->Tiro certeiro, '" + shotWaterMarker + "'->Tiro na água"};
         }
 
-        return pattern;
+        //return pattern;
     }
+
+    public static String status(int floatingShips, int sunkenShips) {
+        String pattern;
+
+        switch (locale.getLanguage()) {
+            case "en":
+                pattern = "Fleet State: {0} floating, {1} sunken!";
+                break;
+            case "pt":
+                pattern = "Estado da Frota: {0} a flutuar, {1} afundados!";
+                break;
+            default:
+                pattern = "Estado da Frota: {0} a flutuar, {1} afundados!";
+        }
+
+        MessageFormat mf = new MessageFormat(pattern, locale);
+
+        return mf.format(new Object[]{floatingShips, sunkenShips});
+    }
+
+
 }

@@ -247,7 +247,16 @@ public class Game implements IGame
 				shots.add(newShot);
 		}
 
-		System.out.print("rajada ");
+		switch (Messages.LOCALE().getLanguage()) {
+            case "en":
+                System.out.print("burst ");
+                break;
+            case "pt":
+                System.out.println("rajada ");
+                break;
+            default:
+                System.out.println("rajada ");
+        }
 		for (IPosition shot : shots)
 			System.out.print(shot + " ");
 		System.out.println();
