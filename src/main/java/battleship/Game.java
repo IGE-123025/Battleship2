@@ -1,5 +1,6 @@
 package battleship;
 
+import battleship.messages.Messages;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -82,9 +83,10 @@ public class Game implements IGame
 		System.out.println("-+");
 
 		if (showLegend) {
-			System.out.println("          LEGENDA");
-			System.out.println("'" + SHIP_MARKER + "'->navio, '" + SHIP_ADJACENT_MARKER + "'->adjacente a navio, '" + EMPTY_MARKER + "'->água");
-			System.out.println("'" + SHOT_SHIP_MARKER + "'->Tiro certeiro, '" + SHOT_WATER_MARKER + "'->Tiro na água");
+			String[] caption = Messages.boardCaptions(SHIP_MARKER, SHIP_ADJACENT_MARKER, EMPTY_MARKER, SHOT_SHIP_MARKER, SHOT_WATER_MARKER);
+            System.out.println(caption[0]);
+            System.out.println(caption[1]);
+            System.out.println(caption[2]);
 		}
 		System.out.println();
 	}
@@ -245,7 +247,16 @@ public class Game implements IGame
 				shots.add(newShot);
 		}
 
-		System.out.print("rajada ");
+		switch (Messages.LOCALE().getLanguage()) {
+            case "en":
+                System.out.print("burst ");
+                break;
+            case "pt":
+                System.out.println("rajada ");
+                break;
+            default:
+                System.out.println("rajada ");
+        }
 		for (IPosition shot : shots)
 			System.out.print(shot + " ");
 		System.out.println();
