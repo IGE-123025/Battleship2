@@ -11,7 +11,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Tasks {
 
-	private static final String SCOREBOARD = "scoreboard";
 	/**
 	 * The constant LOGGER.
 	 */
@@ -43,6 +42,7 @@ public class Tasks {
 
 		IFleet myFleet = null;
 		IGame game = null;
+		Scoreboard scoreboard = new Scoreboard();
 		menuHelp();
 
 		System.out.print("> ");
@@ -138,6 +138,7 @@ public class Tasks {
 		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
+		System.out.println("- " + SCOREBOARD + ": Mostra o placar dos jogos anteriores.");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
 	}
