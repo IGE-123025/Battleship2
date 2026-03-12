@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.time.StopWatch;
 import java.io.*;
 
+import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.*;
 
 public class Game implements IGame
@@ -172,6 +174,11 @@ public class Game implements IGame
 	private Integer countHits;
 	private Integer countSinks;
 	private int moveNumber;
+	private LocalDateTime gameStartTime;
+	private int totalShots = 0;
+	private int totalHits = 0;
+	private int totalMisses = 0;
+	private Scoreboard scoreboard;
 
 	//------------------------------------------------------------------
 	public Game(IFleet myFleet)
@@ -188,6 +195,9 @@ public class Game implements IGame
 		this.countRepeatedShots = 0;
 		this.countHits = 0;
 		this.countSinks = 0;
+
+		this.gameStartTime = LocalDateTime.now();
+		this.scoreboard = new Scoreboard();
 	}
 
 	@Override
@@ -362,6 +372,17 @@ public class Game implements IGame
 		alienMoves.add(move);
 
 		moveNumber++;
+
+		totalShots += shots.size();
+		for (ShotResult result : shotResults) {
+			if (result.valid() && !result.repeated()) {
+				if (result.ship() != null) {
+					totalHits++;
+				} else {
+					totalMisses++;
+				}
+			}
+		}
 	}
 
 	/**
@@ -454,9 +475,30 @@ public class Game implements IGame
 	}
 
 	public void over() {
+		saveGameToScoreboard();  // Adicione esta linha
+		scoreboard.displayScoreboard();
 			System.out.println();
 			System.out.println("+--------------------------------------------------------------+");
 			System.out.println("| Maldito sejas, Java Sparrow, eu voltarei, glub glub glub ... |");
 			System.out.println("+--------------------------------------------------------------+");
+	}
+
+	public void saveGameToScoreboard() {
+		try {
+			Scoreboard scoreboard = new Scoreboard();
+			int duration = (int) java.time.Duration.between(gameStartTime, LocalDateTime.now()).getSeconds();
+			scoreboard.saveGame(
+					duration,
+					totalShots,
+					totalHits,
+					totalMisses,
+					getSunkShips(),
+					getRemainingShips() == 0 ? "Inimigo" : "Jogador",
+					"Simulação"
+			);
+			System.out.println("✅ Jogo salvo no scoreboard com sucesso!");
+		} catch (Exception e) {
+			System.err.println("❌ Erro ao salvar jogo no scoreboard: " + e.getMessage());
+		}
 	}
 }
