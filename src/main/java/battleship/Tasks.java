@@ -36,7 +36,7 @@ public class Tasks {
 	/**
 	 * This task also tests the fighting element of a round of three shots
 	 */
-	public static void menu() {
+	public static void menu(){
 
 		IFleet myFleet = null;
 		IGame game = null;
@@ -90,6 +90,7 @@ public class Tasks {
 								Thread.currentThread().interrupt(); // Best practice: restore interrupt status
 							}
 						}
+
 
 						if (game.getRemainingShips() == 0) {
 							game.over();

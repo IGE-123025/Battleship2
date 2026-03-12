@@ -3,6 +3,8 @@ package battleship;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.commons.lang3.time.StopWatch;
+import java.io.*;
 
 import java.util.*;
 
@@ -22,6 +24,20 @@ public class Game implements IGame
 	 * @param showLegend  if true, displays an explanatory legend of the symbols used
 	 *                    to represent various elements such as ships, misses, hits, etc.
 	 */
+
+	private StopWatch stopWatch = new StopWatch();
+
+	private void StartTimer(){
+		stopWatch.reset();
+		stopWatch.start();
+	}
+
+	private void StopTimer(){
+		stopWatch.stop();
+		double seconds = stopWatch.getTime() / 10;
+		System.out.println("Tempo da Jogada: " + seconds +  " segundos!");
+	}
+
 	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend) {
 
 		assert fleet != null;
@@ -209,6 +225,7 @@ public class Game implements IGame
 	 */
 	public String randomEnemyFire() {
 
+		StartTimer();
 		// Criar uma instância de Random com uma seed baseada no timestamp atual
 		Random random = new Random(System.currentTimeMillis());
 
@@ -251,6 +268,7 @@ public class Game implements IGame
 		System.out.println();
 
 		this.fireShots(shots);
+		StopTimer();
 
 		return Game.jsonShots(shots);
 	}
@@ -271,6 +289,7 @@ public class Game implements IGame
 	 */
 	public String readEnemyFire(Scanner in) {
 
+		StartTimer();
 		assert in != null;
 
 		String input = in.nextLine().trim();
@@ -303,7 +322,7 @@ public class Game implements IGame
 		}
 
 		this.fireShots(shots);
-
+		StopTimer();
 		return Game.jsonShots(shots);
 	}
 
