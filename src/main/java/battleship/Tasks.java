@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
  * The type Tasks.
  */
 public class Tasks {
+
+	private static final String SCOREBOARD = "scoreboard";
 	/**
 	 * The constant LOGGER.
 	 */
@@ -32,6 +34,7 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
+	private static final String SCOREBOARD = "scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
@@ -103,7 +106,16 @@ public class Tasks {
 					break;
                 case AJUDA:
                     menuHelp();
+					System.out.println("- " + SCOREBOARD + ": Mostra o placar dos jogos anteriores.");
                     break;
+				case SCOREBOARD:
+					if (game != null) {
+						// Você precisará de um getter para o scoreboard na classe Game
+						// ou crie um Scoreboard diretamente aqui
+						Scoreboard sb = new Scoreboard();
+						sb.displayScoreboard();
+					}
+					break;
 				default:
 					System.out.println("Que comando é esse??? Repete ...");
 			}
