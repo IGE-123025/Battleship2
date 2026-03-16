@@ -4,7 +4,11 @@ import battleship.messages.Messages;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.commons.lang3.time.StopWatch;
+import java.io.*;
 
+import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.*;
 
 public class Game implements IGame
@@ -23,6 +27,20 @@ public class Game implements IGame
 	 * @param showLegend  if true, displays an explanatory legend of the symbols used
 	 *                    to represent various elements such as ships, misses, hits, etc.
 	 */
+
+	private StopWatch stopWatch = new StopWatch();
+
+	private void StartTimer(){
+		stopWatch.reset();
+		stopWatch.start();
+	}
+
+	private void StopTimer(){
+		stopWatch.stop();
+		double seconds = stopWatch.getTime() / 10;
+		System.out.println("Tempo da Jogada: " + seconds +  " segundos!");
+	}
+
 	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend) {
 
 		assert fleet != null;
@@ -158,6 +176,11 @@ public class Game implements IGame
 	private Integer countHits;
 	private Integer countSinks;
 	private int moveNumber;
+	private LocalDateTime gameStartTime;
+	private int totalShots = 0;
+	private int totalHits = 0;
+	private int totalMisses = 0;
+	private Scoreboard scoreboard;
 
 	//------------------------------------------------------------------
 	public Game(IFleet myFleet)
@@ -174,6 +197,9 @@ public class Game implements IGame
 		this.countRepeatedShots = 0;
 		this.countHits = 0;
 		this.countSinks = 0;
+
+		this.gameStartTime = LocalDateTime.now();
+		this.scoreboard = new Scoreboard();
 	}
 
 	@Override
@@ -211,6 +237,7 @@ public class Game implements IGame
 	 */
 	public String randomEnemyFire() {
 
+		StartTimer();
 		// Criar uma instância de Random com uma seed baseada no timestamp atual
 		Random random = new Random(System.currentTimeMillis());
 
@@ -262,6 +289,7 @@ public class Game implements IGame
 		System.out.println();
 
 		this.fireShots(shots);
+		StopTimer();
 
 		return Game.jsonShots(shots);
 	}
@@ -282,6 +310,7 @@ public class Game implements IGame
 	 */
 	public String readEnemyFire(Scanner in) {
 
+		StartTimer();
 		assert in != null;
 
 		String input = in.nextLine().trim();
@@ -314,7 +343,7 @@ public class Game implements IGame
 		}
 
 		this.fireShots(shots);
-
+		StopTimer();
 		return Game.jsonShots(shots);
 	}
 
@@ -354,6 +383,17 @@ public class Game implements IGame
 		alienMoves.add(move);
 
 		moveNumber++;
+
+		totalShots += shots.size();
+		for (ShotResult result : shotResults) {
+			if (result.valid() && !result.repeated()) {
+				if (result.ship() != null) {
+					totalHits++;
+				} else {
+					totalMisses++;
+				}
+			}
+		}
 	}
 
 	/**
@@ -446,9 +486,30 @@ public class Game implements IGame
 	}
 
 	public void over() {
+		saveGameToScoreboard();  // Adicione esta linha
+		scoreboard.displayScoreboard();
 			System.out.println();
 			System.out.println("+--------------------------------------------------------------+");
 			System.out.println("| Maldito sejas, Java Sparrow, eu voltarei, glub glub glub ... |");
 			System.out.println("+--------------------------------------------------------------+");
+	}
+
+	public void saveGameToScoreboard() {
+		try {
+			Scoreboard scoreboard = new Scoreboard();
+			int duration = (int) java.time.Duration.between(gameStartTime, LocalDateTime.now()).getSeconds();
+			scoreboard.saveGame(
+					duration,
+					totalShots,
+					totalHits,
+					totalMisses,
+					getSunkShips(),
+					getRemainingShips() == 0 ? "Inimigo" : "Jogador",
+					"Simulação"
+			);
+			System.out.println("✅ Jogo salvo no scoreboard com sucesso!");
+		} catch (Exception e) {
+			System.err.println("❌ Erro ao salvar jogo no scoreboard: " + e.getMessage());
+		}
 	}
 }

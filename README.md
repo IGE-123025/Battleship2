@@ -16,6 +16,7 @@
 - [Code Architecture](#-code-architecture)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
+- [Notas do Grupo](#notas-do-grupo)
 
 ---
 
@@ -140,6 +141,16 @@ Contributions are what make the open-source community such an amazing place to l
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a **Pull Request**
+
+---
+
+## Notas do Grupo
+
+### Contas Alternativas
+Alguns dos membros do grupo têm outras contas de GitHub anteriores à UC de ES. Isto gerou o problema de que alguns commits ficam inadvertidamente associados a essas contas em vez das criadas para a UC. Nesse sentido identificam-se abaixo as contas e o aluno associado:
+
+- [ IGE-123025, Username Conta Alternativa: jcjesus45 ]
+- [ IGE-123011, Username Conta Alternativa: Reynolds2005 ]
 
 ---
 

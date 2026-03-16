@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
  * The type Tasks.
  */
 public class Tasks {
+
 	/**
 	 * The constant LOGGER.
 	 */
@@ -33,15 +34,17 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
-    private static final String IDIOMA_MENSAGENS = "idiomamensagens";
+   private static final String IDIOMA_MENSAGENS = "idiomamensagens";
+	private static final String SCOREBOARD = "scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
 	 */
-	public static void menu() {
+	public static void menu(){
 
 		IFleet myFleet = null;
 		IGame game = null;
+		Scoreboard scoreboard = new Scoreboard();
 		menuHelp();
 
 		System.out.print("> ");
@@ -93,6 +96,7 @@ public class Tasks {
 							}
 						}
 
+
 						if (game.getRemainingShips() == 0) {
 							game.over();
 							System.exit(0);
@@ -105,12 +109,21 @@ public class Tasks {
 					break;
                 case AJUDA:
                     menuHelp();
+					System.out.println("- " + SCOREBOARD + ": Mostra o placar dos jogos anteriores.");
                     break;
                 case IDIOMA_MENSAGENS:
                     System.out.print("> ");
                     Scanner in2 = new Scanner(System.in);
                     Messages.setLocale(in2.next());
                     break;
+				case SCOREBOARD:
+					if (game != null) {
+						// Você precisará de um getter para o scoreboard na classe Game
+						// ou crie um Scoreboard diretamente aqui
+						Scoreboard sb = new Scoreboard();
+						sb.displayScoreboard();
+					}
+					break;
 				default:
 					System.out.println(Messages.invalidCommand());
 			}
@@ -134,6 +147,7 @@ public class Tasks {
 		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
+		System.out.println("- " + SCOREBOARD + ": Mostra o placar dos jogos anteriores.");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
 		System.out.println("===============================================================");
 	}
