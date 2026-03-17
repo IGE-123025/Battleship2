@@ -31,8 +31,11 @@ public class Game implements IGame
 	private StopWatch stopWatch = new StopWatch();
 
 	private void StartTimer(){
-		stopWatch.reset();
-		stopWatch.start();
+		if (stopWatch.isStarted()) {
+				stopWatch.stop();
+			}
+			stopWatch.reset();
+			stopWatch.start();
 	}
 
 	private void StopTimer(){
