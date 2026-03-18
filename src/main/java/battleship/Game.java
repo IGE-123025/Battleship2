@@ -1,5 +1,6 @@
 package battleship;
 
+import battleship.ai.AIService;
 import battleship.messages.Messages;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -220,7 +221,7 @@ public class Game implements IGame
 	@Override
 	public IFleet getAlienFleet()
 	{
-		return myFleet;
+		return alienFleet;
 	}
 
 	@Override
@@ -349,6 +350,57 @@ public class Game implements IGame
 		StopTimer();
 		return Game.jsonShots(shots);
 	}
+
+    public String readEnemyFireAI(AIService ai, String prompt) {
+        StartTimer();
+
+        // chama o AI (já devolve algo tipo: "rajada A1 A2 A3")
+        String input = ai.getMove().trim();
+
+        // Criar lista para armazenar os tiros
+        List<IPosition> shots = new ArrayList<>();
+
+        Scanner inputScanner = new Scanner(input);
+
+        if (inputScanner.hasNext()) {
+            String first = inputScanner.next();
+            if (!first.equalsIgnoreCase("rajada")) {
+                // se não vier "rajada", volta atrás (caso raro)
+                inputScanner = new Scanner(input);
+            }
+        }
+
+        while (shots.size() < NUMBER_SHOTS && inputScanner.hasNext()) {
+
+            String token = inputScanner.next();
+
+            if (token.matches("[A-Za-z]")) {
+                if (inputScanner.hasNextInt()) {
+                    int row = inputScanner.nextInt();
+                    shots.add(new Position(token.toUpperCase().charAt(0), row));
+                } else {
+                    throw new IllegalArgumentException(
+                            "Posição incompleta! A coluna '" + token + "' não é seguida por uma linha."
+                    );
+                }
+            } else {
+                Scanner singleScanner = new Scanner(token);
+                shots.add(Tasks.readClassicPosition(singleScanner));
+            }
+        }
+
+        if (shots.size() != NUMBER_SHOTS) {
+            throw new IllegalArgumentException(
+                    "AI deve fornecer exatamente " + NUMBER_SHOTS + " posições!"
+            );
+        }
+
+        this.fireShots(shots);
+
+        StopTimer();
+
+        return Game.jsonShots(shots);
+    }
 
 	/**
 	 * Fires a set of shots during a player's move. Each shot is resolved and

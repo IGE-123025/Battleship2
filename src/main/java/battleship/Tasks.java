@@ -2,6 +2,7 @@ package battleship;
 
 import java.util.Scanner;
 
+import battleship.ai.AIService;
 import battleship.messages.Messages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +35,8 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
-   private static final String IDIOMA_MENSAGENS = "idiomamensagens";
+    private static final String RAJADA_IA = "rajada_ia";
+    private static final String IDIOMA_MENSAGENS = "idiomamensagens";
 	private static final String SCOREBOARD = "scoreboard";
 
 	/**
@@ -103,6 +105,21 @@ public class Tasks {
 						}
 					}
 					break;
+                case RAJADA_IA:
+                    if (game != null) {
+                        AIService ai = new AIService();
+                        String move = ai.getMove();
+                        String json = ((Game) game).readEnemyFireAI(ai, move);
+                        ai.updateWithResult(move,json);
+                        myFleet.printStatus();
+                        game.printMyBoard(true, false);
+
+                        if (game.getRemainingShips() == 0) {
+                            game.over();
+                            System.exit(0);
+                        }
+                    }
+                    break;
 				case TIROS:
 					if (game != null)
 						game.printMyBoard(true, true);
@@ -146,6 +163,7 @@ public class Tasks {
 		System.out.println("- " + MAPA + ": Exibe o mapa da frota.");
 		System.out.println("- " + RAJADA + ": Realiza uma rajada de disparos.");
 		System.out.println("- " + SIMULA + ": Simula um jogo completo.");
+		System.out.println("- " + RAJADA_IA + ": O oponente IA (definido por LLM open-source) realiza uma rajada.");
 		System.out.println("- " + TIROS + ": Lista os tiros válidos realizados (* = tiro em navio, o = tiro na água)");
 		System.out.println("- " + SCOREBOARD + ": Mostra o placar dos jogos anteriores.");
 		System.out.println("- " + DESISTIR + ": Encerra o jogo.");
