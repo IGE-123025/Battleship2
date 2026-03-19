@@ -12,11 +12,12 @@ public class AIService {
 
     public String getMove() {
 
+        System.out.println("AI a pensar...");
         String prompt = PromptBuilder.build(game, logs.toString());
 
         try {
             String response = LLMClient.call(prompt);
-
+            System.out.println("AI a pensar...");
             return MoveExtractor.extract(response);
 
         } catch (Exception e) {

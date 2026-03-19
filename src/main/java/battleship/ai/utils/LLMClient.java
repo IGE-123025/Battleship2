@@ -14,7 +14,15 @@ public class LLMClient {
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
 
-        String json = "{\"prompt\":\"" + prompt.replace("\"", "\\\"") + "\"}";
+        connection.setConnectTimeout(5000);
+        connection.setReadTimeout(5000);
+
+        String safePrompt = prompt
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n");
+
+        String json = "{\"prompt\": \"" + safePrompt + "\"}";
 
         try(OutputStream os = connection.getOutputStream()) {
             os.write(json.getBytes());

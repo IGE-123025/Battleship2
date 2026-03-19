@@ -1,3 +1,5 @@
 /target/
 
 /jogadas.pdf
+
+ai/__pycache__*

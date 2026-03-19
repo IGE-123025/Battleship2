@@ -49,6 +49,8 @@ public class Tasks {
 		Scoreboard scoreboard = new Scoreboard();
 		menuHelp();
 
+        AIService ai = new AIService();
+
 		System.out.print("> ");
 		Scanner in = new Scanner(System.in);
 		String command = in.next();
@@ -107,7 +109,6 @@ public class Tasks {
 					break;
                 case RAJADA_IA:
                     if (game != null) {
-                        AIService ai = new AIService();
                         String move = ai.getMove();
                         String json = ((Game) game).readEnemyFireAI(ai, move);
                         ai.updateWithResult(move,json);
