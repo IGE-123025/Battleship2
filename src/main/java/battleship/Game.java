@@ -31,7 +31,7 @@ public class Game implements IGame
 	private StopWatch stopWatch = new StopWatch();
 
 	private void StartTimer(){
-			if (stopWatch.isStarted()) {
+		if (stopWatch.isStarted()) {
 				stopWatch.stop();
 			}
 			stopWatch.reset();
@@ -40,7 +40,7 @@ public class Game implements IGame
 
 	private void StopTimer(){
 		stopWatch.stop();
-		double seconds = stopWatch.getTime() / 10.0;
+		double seconds = stopWatch.getTime() / 10;
 		System.out.println("Tempo da Jogada: " + seconds +  " segundos!");
 	}
 
@@ -220,7 +220,7 @@ public class Game implements IGame
 	@Override
 	public IFleet getAlienFleet()
 	{
-		return alienFleet;
+		return myFleet;
 	}
 
 	@Override
@@ -241,6 +241,7 @@ public class Game implements IGame
 	public String randomEnemyFire() {
 
 		StartTimer();
+		// Criar uma instância de Random com uma seed baseada no timestamp atual
 		Random random = new Random(System.currentTimeMillis());
 
 		Set<IPosition> usablePositions = new HashSet<IPosition>();
@@ -291,7 +292,6 @@ public class Game implements IGame
 		System.out.println();
 
 		this.fireShots(shots);
-
 		StopTimer();
 
 		return Game.jsonShots(shots);
