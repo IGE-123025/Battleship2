@@ -91,7 +91,6 @@
 			<scope>compile</scope>
 		</dependency>
 
- feature/export-jogadas-pdf
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
