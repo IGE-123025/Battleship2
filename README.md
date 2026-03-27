@@ -21,6 +21,16 @@
 
 ---
 
+## Constituição do Grupo
+
+**Membros do grupo:**
+- Dinis Oliveira, nº 110764
+- João Jesus, nº 123025
+- Ricardo Cabrito, nº 122999
+- Tiago Reinolds, nº 123011
+
+---
+
 ## 🔗 Link do Youtube
 Nesta secção encontra-se o link referente ao vídeo de Youtube que demonstra as funcionalidades implementadas pelo grupo.
 
