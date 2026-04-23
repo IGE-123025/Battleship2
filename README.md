@@ -192,6 +192,20 @@ Aqui encontra-se o prompt final que o grupo apresentou ao LLM e que o levou a re
 
 ---
 
+## Integração Contínua (CI)
+
+Este projeto utiliza GitHub Actions para executar automaticamente os testes unitários sempre que é feito um push ou um pull request.
+
+O workflow configurado:
+- Configura Java 17
+- Compila o projeto com Maven
+- Executa os testes unitários
+
+Ficheiro do workflow:
+`.github/workflows/maven.yml`
+
+---
+
 ## 📄 License
 Distributed under the MIT License. See `LICENSE` for more information.
 
