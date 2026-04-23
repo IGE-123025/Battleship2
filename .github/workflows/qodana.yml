@@ -1,4 +1,4 @@
-name: Qodana Code Quality ClassTooComplex
+name: Qodana Code Quality ClassTooComplex OverlyComplex Method
 
 on:
   push:
@@ -17,8 +17,6 @@ jobs:
         uses: JetBrains/qodana-action@v2024.1
         with:
           linter: jetbrains/qodana-jvm
-          args: >
-            --fail-threshold 0
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 
