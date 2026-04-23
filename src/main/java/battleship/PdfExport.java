@@ -19,7 +19,7 @@ public class PdfExport {
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
             contentStream.beginText();
-            contentStream.setFont(new PDType1Font((Standard14Fonts.FontName.HELVETICA_BOLD), 16);
+            contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 16);
             contentStream.newLineAtOffset(50, 750);
             contentStream.showText("Historico de Jogadas");
             contentStream.endText();
