@@ -197,7 +197,7 @@ Aqui encontra-se o prompt final que o grupo apresentou ao LLM e que o levou a re
 Este projeto utiliza GitHub Actions para executar automaticamente os testes unitários sempre que é feito um push ou um pull request.
 
 O workflow configurado:
-- Configura Java 17
+- Configura Java 21
 - Compila o projeto com Maven
 - Executa os testes unitários
 
