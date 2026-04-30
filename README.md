@@ -189,6 +189,12 @@ Aqui encontra-se o prompt final que o grupo apresentou ao LLM e que o levou a re
 > • Se a sua frota for toda afundada, declare a derrota com honra. Em contrapartida, seja um vencedor magnânimo se for o inimigo a render-se com os navios todos no fundo
 > do oceano!
 
+## Falha num Commit
+
+No `Commit a50313e` referente a um dos commits dos Unit Tests no banch *UnitTests_123025*, faltou identificar a classe testada e o issue associado.
+Nesse sentido, os mesmos são referidos abaixo:
+- Classe testada: Messages (package battleship.messages)
+- Issue [#17](https://github.com/IGE-123025/Battleship2/issues/17)
 
 ---
 
