@@ -13,13 +13,20 @@ import java.util.ArrayList;
  * Time: ${current_time}
  * Cyclomatic Complexity for each method:
  * - Constructor: 1
- * - addShip: 3
+ * - addShip: 4
  * - getShips: 1
- * - getShipsLike: 2
- * - getFloatingShips: 2
- * - shipAt: 2
- * - isInsideBoard: 3
- * - colisionRisk: 2
+ * - getShipsLike: 3
+ * - getFloatingShips: 3
+ * - shipAt: 3
+ * - isInsideBoard: 4
+ * - colisionRisk: 3
+ *
+ * - createRandom: 4
+ * - getSunkShips: 3
+ * - printAllShips: 1
+ * - printShips: 2
+ * - printShipsByCategory: 1
+ * - printStatus: 1
  */
 	public class FleetTest {
 
