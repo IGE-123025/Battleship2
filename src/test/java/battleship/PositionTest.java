@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Test class for Position.
  * Author: Tiago Reinolds, 123011
- * Date: 2024-03-19 15:30
+ * Date: 01/05/2026 11:30
  * Cyclomatic Complexity for each method:
  * - Constructor (char,int) : 1
  * - Constructor (int,int) :  1
