@@ -198,6 +198,12 @@ Nesse sentido, os mesmos são referidos abaixo:
 
 ---
 
+## Esclarecimento face à Implementação de JUnitTests
+Nos commits `Commit 55fb6fa` e `Commit 5613991` referente aos Unit Tests no branch UnitTests_123011, gostaria de salientar que devido à elevada complexidade das classes "Move" e "Game" a resolução e eficácia dos mesmos
+não foi a esperada, resultando numa pobre percentagem de Coverage para o Branch, ao contrário do que era solicitado no enunciado. 
+
+---
+
 ## Integração Contínua (CI)
 
 Este projeto utiliza GitHub Actions para executar automaticamente os testes unitários sempre que é feito um push ou um pull request.
