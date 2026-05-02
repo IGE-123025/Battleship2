@@ -5,6 +5,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.time.StopWatch;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.*;
 
 import java.time.LocalDateTime;
@@ -142,7 +145,7 @@ public class Game implements IGame
 			simplifiedShots.add(simplePos);
 		}
 
-		String jsonString = null;
+		String jsonString;
 		try {
 			// 2. Serialize the simplified list instead of the raw 'shots' list
 			jsonString = objectMapper.writeValueAsString(simplifiedShots);
@@ -413,16 +416,16 @@ public class Game implements IGame
 
 		assert pos != null;
 
-		if (!pos.isInside()) {
-			countInvalidShots++;
-			return new ShotResult(false, false, null, false);
-		}
+		ShotResult x = handleInvalidPosition(pos);
+		if (x != null) return x;
 
-		if (isRepeated || repeatedShot(pos)) {
-			countRepeatedShots++;
-			return new ShotResult(true, true, null, false);
-		}
+		ShotResult x1 = handleRepeatedShot(pos, isRepeated);
+		if (x1 != null) return x1;
 
+		return handleNormalShot(pos);
+	}
+
+	private ShotResult handleNormalShot(IPosition pos) {
 		IShip ship = myFleet.shipAt(pos);
 		if (ship == null)
 			return new ShotResult(true, false, null, false);
@@ -435,6 +438,22 @@ public class Game implements IGame
 			}
 			return new ShotResult(true, false, ship, !ship.stillFloating());
 		}
+	}
+
+	private  ShotResult handleRepeatedShot(IPosition pos, boolean isRepeated) {
+		if (isRepeated || repeatedShot(pos)) {
+			countRepeatedShots++;
+			return new ShotResult(true, true, null, false);
+		}
+		return null;
+	}
+
+	private ShotResult handleInvalidPosition(IPosition pos) {
+		if (!pos.isInside()) {
+			countInvalidShots++;
+			return new ShotResult(false, false, null, false);
+		}
+		return null;
 	}
 
 	@Override
