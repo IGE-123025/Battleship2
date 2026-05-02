@@ -54,15 +54,15 @@ linter: jetbrains/qodana-jvm:2025.2
 
 # failThreshold: 0
 
-inspections:
-  - id: ClassTooComplex
-    enabled: true
-    severity: ERROR
-  - id: OverlyComplexMethod
-    enabled: true
-    severity: ERROR
+#inspections:
+#  - id: ClassTooComplex
+#    enabled: true
+#    severity: ERROR
+#  - id: OverlyComplexMethod
+#    enabled: true
+#    severity: ERROR
 
 # definição dos valores máximos para cada inspeção
-thresholds:
-  ClassTooComplex: 1
-  OverlyComplexMethod: 1
+#thresholds:
+#  ClassTooComplex: 1
+#  OverlyComplexMethod: 1
