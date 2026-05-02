@@ -1,0 +1,236 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Messages</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">battleship.messages</a>
+</div>
+
+<h1>Coverage Summary for Class: Messages (battleship.messages)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Messages</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (7/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.7%
+  </span>
+  <span class="absValue">
+    (22/23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package battleship.messages;
+&nbsp;
+&nbsp;import com.ibm.icu.text.MessageFormat;
+&nbsp;import java.util.Locale;
+&nbsp;
+&nbsp;/**
+&nbsp; * Class that defines international messages based on selected language
+&nbsp; */
+<b class="nc">&nbsp;public class Messages {</b>
+&nbsp;
+<b class="fc">&nbsp;    private static Locale locale = Locale.getDefault();</b>
+&nbsp;
+&nbsp;    /*
+&nbsp;    public Messages() {
+&nbsp;        locale = Locale.getDefault();
+&nbsp;        System.out.println(&quot;[DEBUG] Locale: &quot; + locale);
+&nbsp;    }
+&nbsp;
+&nbsp;    public Messages(Locale locale) {
+&nbsp;        Messages.locale = locale;
+&nbsp;    }*/
+&nbsp;
+&nbsp;    public static Locale LOCALE() {
+<b class="fc">&nbsp;        return locale;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void setLocale(String loc) {
+<b class="fc">&nbsp;        locale = Locale.of(loc);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;[DEBUG] Locale: &quot; + locale.getLanguage());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function that returns the message to be sent when the game is terminated in the current language
+&nbsp;     * @return String goodbye message
+&nbsp;     */
+&nbsp;    public static String goodbyeMessage() {
+&nbsp;        String pattern;
+&nbsp;
+<b class="fc">&nbsp;        switch (locale.getLanguage()) {</b>
+&nbsp;            case &quot;en&quot;:
+<b class="fc">&nbsp;                return &quot;Good Sailing!&quot;;</b>
+&nbsp;            case &quot;pt&quot;:
+<b class="fc">&nbsp;                return &quot;Bons ventos!&quot;;</b>
+&nbsp;            default:
+<b class="fc">&nbsp;                return &quot;Bons ventos!&quot;;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        //return pattern;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function that returns the message for when an invalid input is given in the menu in the current language
+&nbsp;     * @return String invalid command message
+&nbsp;     */
+&nbsp;    public static String invalidCommand() {
+&nbsp;        String pattern;
+&nbsp;
+<b class="fc">&nbsp;        switch (locale.getLanguage()) {</b>
+&nbsp;            case &quot;en&quot;:
+<b class="fc">&nbsp;                return &quot;Invalid command!&quot;;</b>
+&nbsp;            case &quot;pt&quot;:
+<b class="fc">&nbsp;                return &quot;Que comando é esse??? Repete ...&quot;;</b>
+&nbsp;            default:
+<b class="fc">&nbsp;                return &quot;Que comando é esse??? Repete ...&quot;;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        //return pattern;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function returns the caption for the game board in the current message language
+&nbsp;     * @param shipMarker - symbol for ships
+&nbsp;     * @param shipAdjacentMarker - symbol for borders
+&nbsp;     * @param emptyMarker - symbol for empty slots
+&nbsp;     * @param shotShipMarker - symbol for hit (shot that hit a ship)
+&nbsp;     * @param shotWaterMarker - symbol for missed shot (shot that hit water)
+&nbsp;     * @return String[size:3] containing the content of the board caption
+&nbsp;     */
+&nbsp;    public static String[] boardCaptions(char shipMarker, char shipAdjacentMarker, char emptyMarker, char shotShipMarker, char shotWaterMarker) {
+&nbsp;        String[] pattern;
+&nbsp;
+<b class="fc">&nbsp;        switch (locale.getLanguage()) {</b>
+&nbsp;            case &quot;en&quot;:
+<b class="fc">&nbsp;               return new String[]{&quot;          CAPTION&quot;,</b>
+&nbsp;                       &quot;&#39;&quot; + shipMarker + &quot;&#39;-&gt;ship, &#39;&quot; + shipAdjacentMarker + &quot;&#39;-&gt;ship adjacent, &#39;&quot; + emptyMarker + &quot;&#39;-&gt;water&quot;,
+&nbsp;                       &quot;&#39;&quot; + shotShipMarker + &quot;&#39;-&gt;Hit, &#39;&quot; + shotWaterMarker + &quot;&#39;-&gt;Missed shot&quot;};
+&nbsp;            case &quot;pt&quot;:
+<b class="fc">&nbsp;                return new String[]{&quot;          LEGENDA&quot;,</b>
+&nbsp;                        &quot;&#39;&quot; + shipMarker + &quot;&#39;-&gt;navio, &#39;&quot; + shipAdjacentMarker + &quot;&#39;-&gt;adjacente a navio, &#39;&quot; + emptyMarker + &quot;&#39;-&gt;água&quot;,
+&nbsp;                        &quot;&#39;&quot; + shotShipMarker + &quot;&#39;-&gt;Tiro certeiro, &#39;&quot; + shotWaterMarker + &quot;&#39;-&gt;Tiro na água&quot;};
+&nbsp;            default:
+<b class="fc">&nbsp;                return new String[]{&quot;          LEGENDA&quot;,</b>
+&nbsp;                        &quot;&#39;&quot; + shipMarker + &quot;&#39;-&gt;navio, &#39;&quot; + shipAdjacentMarker + &quot;&#39;-&gt;adjacente a navio, &#39;&quot; + emptyMarker + &quot;&#39;-&gt;água&quot;,
+&nbsp;                        &quot;&#39;&quot; + shotShipMarker + &quot;&#39;-&gt;Tiro certeiro, &#39;&quot; + shotWaterMarker + &quot;&#39;-&gt;Tiro na água&quot;};
+&nbsp;        }
+&nbsp;
+&nbsp;        //return pattern;
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String status(int floatingShips, int sunkenShips) {
+&nbsp;        String pattern;
+&nbsp;
+<b class="fc">&nbsp;        switch (locale.getLanguage()) {</b>
+&nbsp;            case &quot;en&quot;:
+<b class="fc">&nbsp;                pattern = &quot;Fleet State: {0} floating, {1} sunken!&quot;;</b>
+&nbsp;                break;
+&nbsp;            case &quot;pt&quot;:
+<b class="fc">&nbsp;                pattern = &quot;Estado da Frota: {0} a flutuar, {1} afundados!&quot;;</b>
+&nbsp;                break;
+&nbsp;            default:
+<b class="fc">&nbsp;                pattern = &quot;Estado da Frota: {0} a flutuar, {1} afundados!&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        MessageFormat mf = new MessageFormat(pattern, locale);</b>
+&nbsp;
+<b class="fc">&nbsp;        return mf.format(new Object[]{floatingShips, sunkenShips});</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-04-30 20:15</div>
+</div>
+</body>
+</html>
