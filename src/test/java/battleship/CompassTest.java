@@ -89,5 +89,17 @@ public class CompassTest {
 		assertNull(Compass.charToCompass('\0'), "Error: Null character should map to null.");
 	}
 
+	@Test
+	@DisplayName("Random bearing always returns a valid compass value")
+	void randomBearingReturnsValidCompass() {
+		Compass bearing = Compass.randomBearing();
 
+		assertNotNull(bearing);
+		assertTrue(
+				bearing == Compass.NORTH ||
+						bearing == Compass.SOUTH ||
+						bearing == Compass.EAST ||
+						bearing == Compass.WEST
+		);
+	}
 }
