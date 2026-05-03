@@ -3,6 +3,8 @@
  */
 package battleship;
 
+import battleship.messages.Messages;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +118,7 @@ public class Fleet implements IFleet
 
 		List<IShip> shipsLike = new ArrayList<>();
 		for (IShip s : ships)
-			if (s.getCategory().equals(category))
+			if (s.getCategory().equalsIgnoreCase(category))
 				shipsLike.add(s);
 
 		return shipsLike;
@@ -236,7 +238,7 @@ public class Fleet implements IFleet
 	 */
 	public void printStatus()
     {
-		System.out.println("Estado da Frota: " + this.getFloatingShips().size() + " a flutuar, " + this.getSunkShips().size() + " afundados!");
+		System.out.println(Messages.status(this.getFloatingShips().size(), this.getSunkShips().size()));
 //		printAllShips();
 //		printFloatingShips();
 //		printShipsByCategory("Galeao");

@@ -3,6 +3,7 @@ package battleship;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
@@ -30,7 +31,10 @@ public class PdfExport {
                 String linha = jogada.getNumero() + " - " + jogada.getJogador() + ": " + jogada.getDescricao();
 
                 contentStream.beginText();
+
                 contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD), 12);
+
+                contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
                 contentStream.newLineAtOffset(50, y);
                 contentStream.showText(linha);
                 contentStream.endText();

@@ -2,9 +2,9 @@ package battleship;
 
 public class Jogada {
 
-    private int numero;
-    private String jogador;
-    private String descricao;
+    private final int numero;
+    private final String jogador;
+    private final String descricao;
 
     public Jogada(JogadaData data) {
         this.numero = data.numero();
