@@ -9,6 +9,7 @@
 ---
 
 ## 📖 Table of Contents
+- [Link do Youtube](#-link-do-youtube)
 - [Project Overview](#-project-overview)
 - [Key Features](#-key-features)
 - [Technical Stack](#-technical-stack)
@@ -16,6 +17,24 @@
 - [Code Architecture](#-code-architecture)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
+- [Notas do Grupo](#notas-do-grupo)
+
+---
+
+## Constituição do Grupo
+
+**Membros do grupo:**
+- Dinis Oliveira, nº 110764
+- João Jesus, nº 123025
+- Ricardo Cabrito, nº 122999
+- Tiago Reinolds, nº 123011
+
+---
+
+## 🔗 Link do Youtube
+Nesta secção encontra-se o link referente ao vídeo de Youtube que demonstra as funcionalidades implementadas pelo grupo.
+
+- Link: https://youtu.be/YwOjc6ZX_Ao
 
 ---
 
@@ -140,6 +159,62 @@ Contributions are what make the open-source community such an amazing place to l
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a **Pull Request**
+
+---
+
+## Notas do Grupo
+
+### Contas Alternativas
+Alguns dos membros do grupo têm outras contas de GitHub anteriores à UC de ES. Isto gerou o problema de que alguns commits ficam inadvertidamente associados a essas contas em vez das criadas para a UC. Nesse sentido identificam-se abaixo as contas e o aluno associado:
+
+- [ IGE-123025, Username Conta Alternativa: jcjesus45 ]
+- [ IGE-123011, Username Conta Alternativa: Reynolds2005 ]
+
+
+### Prompt final proposto ao LLM
+Aqui encontra-se o prompt final que o grupo apresentou ao LLM e que o levou a realizar um jogo completo com sucesso.
+
+> Considere agora a seguinte tática de geração de rajadas de tiros.
+> • Crie um Diário de Bordo com o registo de cada rajada disparada, numerando-as sequencialmente (Rajada 1, 2, 3...). Guarde as coordenadas exatas de cada tiro e o
+> respetivo resultado (Água, Nau atingida, Barca afundada, etc.). A memória é a principal arma de um bom estratega.
+> • Não dispare fora dos limites do mapa (ex: Z99) nem repita tiros em coordenadas já testadas. A única exceção para este desperdício de pólvora é a última rajada do
+> jogo, apenas para perfazer os 3 tiros obrigatórios quando a frota inimiga já estiver irremediavelmente no fundo do mar.
+> • Se atingir um navio numa rajada, dispare nas posições contíguas (Norte, Sul, Este, Oeste) na jogada seguinte para descobrir a orientação da embarcação e acabar de a
+> afundar. No entanto, se a rajada anterior confirmar que o navio já foi afundado, não dispare para as posições contíguas, pois os navios nunca estão encostados.
+> • Como as Caravelas, Naus e Fragatas são linhas retas, um tiro certeiro significa que o resto do navio está na horizontal ou na vertical. Como os navios não se podem tocar
+> (nem sequer nos cantos), as posições diagonais a um tiro certeiro são garantidamente água (a única exceção é o corpo do Galeão, devido à sua forma em T). Evitar estas
+> diagonais poupa imensos tiros.
+> • Quando o relatório de uma rajada confirmar que um navio foi afundado (ex: Fragata de 4 posições), analise os dados do seu Diário de Bordo para identificar exatamente   > onde caíram esses 4 tiros. Confirmada a posição exata da carcaça, marque todas as quadrículas adjacentes (o halo de 1 posição em redor do navio) como água
+> intransitável. É impossível haver outra embarcação nesse perímetro.
+> • Se a sua frota for toda afundada, declare a derrota com honra. Em contrapartida, seja um vencedor magnânimo se for o inimigo a render-se com os navios todos no fundo
+> do oceano!
+
+## Falha num Commit
+
+No `Commit a50313e` referente a um dos commits dos Unit Tests no banch *UnitTests_123025*, faltou identificar a classe testada e o issue associado.
+Nesse sentido, os mesmos são referidos abaixo:
+- Classe testada: Messages (package battleship.messages)
+- Issue [#17](https://github.com/IGE-123025/Battleship2/issues/17)
+
+---
+
+## Esclarecimento face à Implementação de JUnitTests
+Nos commits `Commit 55fb6fa` e `Commit 5613991` referente aos Unit Tests no branch UnitTests_123011, gostaria de salientar que devido à elevada complexidade das classes "Move" e "Game" a resolução e eficácia dos mesmos
+não foi a esperada, resultando numa pobre percentagem de Coverage para o Branch, ao contrário do que era solicitado no enunciado. 
+
+---
+
+## Integração Contínua (CI)
+
+Este projeto utiliza GitHub Actions para executar automaticamente os testes unitários sempre que é feito um push ou um pull request.
+
+O workflow configurado:
+- Configura Java 21
+- Compila o projeto com Maven
+- Executa os testes unitários
+
+Ficheiro do workflow:
+`.github/workflows/maven.yml`
 
 ---
 

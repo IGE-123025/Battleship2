@@ -25,6 +25,11 @@ import java.util.List;
  * - getBottomMostPos: 2
  * - getLeftMostPos: 2
  * - getRightMostPos: 2
+ * - buildShip: 7
+ * - getAdjacentPositions: 5
+ * - getPosition: 1
+ * - sink: 2
+ * - toString: 1
  */
 public class ShipTest {
 
@@ -195,8 +200,30 @@ public class ShipTest {
      * Cyclomatic Complexity: 2
      */
     @Test
-    void testGetTopMostPos() {
+    void testGetTopMostPos1() {
         assertEquals(5, ship.getTopMostPos(), "Error: The topmost position should be 5.");
+    }
+
+    @Test
+    @DisplayName("getTopMostPos works with multi-position ship")
+    void testGetTopMost2() {
+        Ship s = new Caravel(Compass.NORTH, new Position(5,5));
+
+        assertTrue(s.getTopMostPos() <= s.getBottomMostPos());
+    }
+
+    @Test
+    @DisplayName("getTopMostPos is consistent with positions list")
+    void getTopMostPos3() {
+        Ship s = new Frigate(Compass.NORTH, new Position(5,5));
+
+        int expected = s.getPositions()
+                .stream()
+                .mapToInt(IPosition::getRow)
+                .min()
+                .orElseThrow();
+
+        assertEquals(expected, s.getTopMostPos());
     }
 
     /**
@@ -224,5 +251,140 @@ public class ShipTest {
     @Test
     void testGetRightMostPos() {
         assertEquals(5, ship.getRightMostPos(), "Error: The rightmost position should be 5.");
+    }
+
+    @Test @DisplayName("buildShip creates Barge")
+    void buildShip1() {
+        assertTrue(Ship.buildShip("barca", Compass.NORTH, new Position(1,1)) instanceof Barge);
+    }
+
+    @Test @DisplayName("buildShip creates Caravel")
+    void buildShip2() {
+        assertTrue(Ship.buildShip("caravela", Compass.NORTH, new Position(1,1)) instanceof Caravel);
+    }
+
+    @Test @DisplayName("buildShip creates Carrack")
+    void buildShip3() {
+        assertTrue(Ship.buildShip("nau", Compass.NORTH, new Position(1,1)) instanceof Carrack);
+    }
+
+    @Test @DisplayName("buildShip creates Frigate")
+    void buildShip4() {
+        assertTrue(Ship.buildShip("fragata", Compass.NORTH, new Position(1,1)) instanceof Frigate);
+    }
+
+    @Test @DisplayName("buildShip creates Galleon")
+    void buildShip5() {
+        assertTrue(Ship.buildShip("galeao", Compass.NORTH, new Position(1,1)) instanceof Galleon);
+    }
+
+    @Test @DisplayName("buildShip returns null for invalid type")
+    void buildShip6() {
+        assertNull(Ship.buildShip("invalid", Compass.NORTH, new Position(1,1)));
+    }
+
+    @Test
+    @DisplayName("getAdjacentPositions returns positions")
+    void getAdjacentPositions1() {
+        List<IPosition> adj = ship.getAdjacentPositions();
+        assertFalse(adj.isEmpty());
+    }
+
+    @Test
+    @DisplayName("adjacent does not include ship positions")
+    void getAdjacentPositions2() {
+        List<IPosition> adj = ship.getAdjacentPositions();
+
+        for (IPosition p : adj) {
+            assertFalse(ship.getPositions().contains(p));
+        }
+    }
+
+    @Test
+    @DisplayName("adjacent handles multiple ship positions")
+    void getAdjacentPositions3() {
+        Ship s = new Caravel(Compass.NORTH, new Position(5,5));
+
+        List<IPosition> adj = s.getAdjacentPositions();
+
+        assertNotNull(adj);
+        assertFalse(adj.isEmpty());
+    }
+
+    @Test
+    @DisplayName("adjacent positions contain no duplicates")
+    void getAdjacentPositions4() {
+        Ship s = new Caravel(Compass.NORTH, new Position(5,5));
+
+        List<IPosition> adj = s.getAdjacentPositions();
+
+        long distinct = adj.stream().distinct().count();
+
+        assertEquals(distinct, adj.size());
+    }
+
+    @Test
+    @DisplayName("getPosition returns initial position")
+    void testGetPosition() {
+        assertEquals(5, ship.getPosition().getRow());
+        assertEquals(5, ship.getPosition().getColumn());
+    }
+
+    @Test
+    @DisplayName("sink hits all positions")
+    void sink1() {
+        Ship s = new Caravel(Compass.NORTH, new Position(5,5));
+
+        s.sink();
+
+        for (IPosition p : s.getPositions()) {
+            assertTrue(p.isHit());
+        }
+    }
+
+    @Test
+    @DisplayName("sink on ship with positions does not throw")
+    void sink2() {
+        assertDoesNotThrow(() -> ship.sink());
+    }
+
+    @Test
+    @DisplayName("toString returns correct format")
+    void testToString() {
+        String str = ship.toString();
+
+        assertTrue(str.contains("Barca"));
+        assertTrue(str.contains("n"));
+    }
+
+    @Test
+    @DisplayName("occupies throws AssertionError when null")
+    void occupiesNull() {
+        assertThrows(AssertionError.class, () -> ship.occupies(null));
+    }
+
+    @Test
+    @DisplayName("tooCloseTo(IShip) throws AssertionError when null")
+    void tooCloseToShipNull() {
+        assertThrows(AssertionError.class, () -> ship.tooCloseTo((IShip) null));
+    }
+
+    @Test
+    @DisplayName("tooCloseTo(IPosition) throws AssertionError when null")
+    void tooCloseToPositionNull() {
+        assertThrows(AssertionError.class, () -> ship.tooCloseTo((IPosition) null));
+    }
+
+    @Test
+    @DisplayName("shoot throws AssertionError when null")
+    void shootNull() {
+        assertThrows(AssertionError.class, () -> ship.shoot(null));
+    }
+
+    @Test
+    @DisplayName("shoot throws AssertionError when position is outside")
+    void shootOutside() {
+        Position outside = new Position(-1, -1); // assume isInside() = false
+        assertThrows(AssertionError.class, () -> ship.shoot(outside));
     }
 }

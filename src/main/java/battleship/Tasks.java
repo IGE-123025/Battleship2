@@ -2,6 +2,7 @@ package battleship;
 
 import java.util.Scanner;
 
+import battleship.messages.Messages;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +20,7 @@ public class Tasks {
 	/**
 	 * The constant GOODBYE_MESSAGE.
 	 */
-	private static final String GOODBYE_MESSAGE = "Bons ventos!";
+	//private static final String GOODBYE_MESSAGE = Messages.goodbyeMessage();
 
 	/**
 	 * Strings to be used by the user
@@ -33,12 +34,13 @@ public class Tasks {
 	private static final String MAPA = "mapa";
 	private static final String STATUS = "estado";
 	private static final String SIMULA = "simula";
+   private static final String IDIOMA_MENSAGENS = "idiomamensagens";
 	private static final String SCOREBOARD = "scoreboard";
 
 	/**
 	 * This task also tests the fighting element of a round of three shots
 	 */
-	public static void menu() {
+	public static void menu(){
 
 		IFleet myFleet = null;
 		IGame game = null;
@@ -94,6 +96,7 @@ public class Tasks {
 							}
 						}
 
+
 						if (game.getRemainingShips() == 0) {
 							game.over();
 							System.exit(0);
@@ -108,6 +111,11 @@ public class Tasks {
                     menuHelp();
 					System.out.println("- " + SCOREBOARD + ": Mostra o placar dos jogos anteriores.");
                     break;
+                case IDIOMA_MENSAGENS:
+                    System.out.print("> ");
+                    Scanner in2 = new Scanner(System.in);
+                    Messages.setLocale(in2.next());
+                    break;
 				case SCOREBOARD:
 					if (game != null) {
 						// Você precisará de um getter para o scoreboard na classe Game
@@ -117,12 +125,12 @@ public class Tasks {
 					}
 					break;
 				default:
-					System.out.println("Que comando é esse??? Repete ...");
+					System.out.println(Messages.invalidCommand());
 			}
 			System.out.print("> ");
 			command = in.next();
 		}
-		System.out.println(GOODBYE_MESSAGE);
+		System.out.println(Messages.goodbyeMessage());
 	}
 
 	/**
@@ -131,6 +139,7 @@ public class Tasks {
 	public static void menuHelp() {
 		System.out.println("======================= AJUDA DO MENU =========================");
 		System.out.println("Digite um dos comandos abaixo para interagir com o jogo:");
+        System.out.println("- " + IDIOMA_MENSAGENS + ": Permite selecionar o idioma das mensagens (disponíveis: pt & en).");
 		System.out.println("- " + GERAFROTA + ": Gera uma frota aleatória de navios.");
 		System.out.println("- " + LEFROTA + ": Permite criar e carregar uma frota personalizada.");
 		System.out.println("- " + STATUS + ": Mostra o status atual da frota.)");

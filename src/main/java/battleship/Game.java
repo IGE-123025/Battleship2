@@ -1,8 +1,14 @@
 package battleship;
 
+import battleship.messages.Messages;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.apache.commons.lang3.time.StopWatch;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.*;
 
 import java.time.LocalDateTime;
 import java.time.Duration;
@@ -24,6 +30,23 @@ public class Game implements IGame
 	 * @param showLegend  if true, displays an explanatory legend of the symbols used
 	 *                    to represent various elements such as ships, misses, hits, etc.
 	 */
+
+	private StopWatch stopWatch = new StopWatch();
+
+	private void StartTimer(){
+		if (stopWatch.isStarted()) {
+				stopWatch.stop();
+			}
+			stopWatch.reset();
+			stopWatch.start();
+	}
+
+	private void StopTimer(){
+		stopWatch.stop();
+		double seconds = stopWatch.getTime() / 10;
+		System.out.println("Tempo da Jogada: " + seconds +  " segundos!");
+	}
+
 	public static void printBoard(IFleet fleet, List<IMove> moves, boolean show_shots, boolean showLegend) {
 
 		assert fleet != null;
@@ -84,9 +107,10 @@ public class Game implements IGame
 		System.out.println("-+");
 
 		if (showLegend) {
-			System.out.println("          LEGENDA");
-			System.out.println("'" + SHIP_MARKER + "'->navio, '" + SHIP_ADJACENT_MARKER + "'->adjacente a navio, '" + EMPTY_MARKER + "'->água");
-			System.out.println("'" + SHOT_SHIP_MARKER + "'->Tiro certeiro, '" + SHOT_WATER_MARKER + "'->Tiro na água");
+			String[] caption = Messages.boardCaptions(SHIP_MARKER, SHIP_ADJACENT_MARKER, EMPTY_MARKER, SHOT_SHIP_MARKER, SHOT_WATER_MARKER);
+            System.out.println(caption[0]);
+            System.out.println(caption[1]);
+            System.out.println(caption[2]);
 		}
 		System.out.println();
 	}
@@ -121,7 +145,7 @@ public class Game implements IGame
 			simplifiedShots.add(simplePos);
 		}
 
-		String jsonString = null;
+		String jsonString;
 		try {
 			// 2. Serialize the simplified list instead of the raw 'shots' list
 			jsonString = objectMapper.writeValueAsString(simplifiedShots);
@@ -219,6 +243,7 @@ public class Game implements IGame
 	 */
 	public String randomEnemyFire() {
 
+		StartTimer();
 		// Criar uma instância de Random com uma seed baseada no timestamp atual
 		Random random = new Random(System.currentTimeMillis());
 
@@ -255,12 +280,22 @@ public class Game implements IGame
 				shots.add(newShot);
 		}
 
-		System.out.print("rajada ");
+		switch (Messages.LOCALE().getLanguage()) {
+            case "en":
+                System.out.print("burst ");
+                break;
+            case "pt":
+                System.out.println("rajada ");
+                break;
+            default:
+                System.out.println("rajada ");
+        }
 		for (IPosition shot : shots)
 			System.out.print(shot + " ");
 		System.out.println();
 
 		this.fireShots(shots);
+		StopTimer();
 
 		return Game.jsonShots(shots);
 	}
@@ -281,6 +316,7 @@ public class Game implements IGame
 	 */
 	public String readEnemyFire(Scanner in) {
 
+		StartTimer();
 		assert in != null;
 
 		String input = in.nextLine().trim();
@@ -313,7 +349,7 @@ public class Game implements IGame
 		}
 
 		this.fireShots(shots);
-
+		StopTimer();
 		return Game.jsonShots(shots);
 	}
 
@@ -380,16 +416,16 @@ public class Game implements IGame
 
 		assert pos != null;
 
-		if (!pos.isInside()) {
-			countInvalidShots++;
-			return new ShotResult(false, false, null, false);
-		}
+		ShotResult x = handleInvalidPosition(pos);
+		if (x != null) return x;
 
-		if (isRepeated || repeatedShot(pos)) {
-			countRepeatedShots++;
-			return new ShotResult(true, true, null, false);
-		}
+		ShotResult x1 = handleRepeatedShot(pos, isRepeated);
+		if (x1 != null) return x1;
 
+		return handleNormalShot(pos);
+	}
+
+	private ShotResult handleNormalShot(IPosition pos) {
 		IShip ship = myFleet.shipAt(pos);
 		if (ship == null)
 			return new ShotResult(true, false, null, false);
@@ -402,6 +438,22 @@ public class Game implements IGame
 			}
 			return new ShotResult(true, false, ship, !ship.stillFloating());
 		}
+	}
+
+	private  ShotResult handleRepeatedShot(IPosition pos, boolean isRepeated) {
+		if (isRepeated || repeatedShot(pos)) {
+			countRepeatedShots++;
+			return new ShotResult(true, true, null, false);
+		}
+		return null;
+	}
+
+	private ShotResult handleInvalidPosition(IPosition pos) {
+		if (!pos.isInside()) {
+			countInvalidShots++;
+			return new ShotResult(false, false, null, false);
+		}
+		return null;
 	}
 
 	@Override
