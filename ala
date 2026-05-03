@@ -1,0 +1,65 @@
+[33mcommit 19d90e130e811fea20202b172e0b374a4f222567[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mRefactoring_110764[m[33m)[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Sun May 3 21:41:17 2026 +0100
+
+    Safe Delete unused import in Carrack
+
+[33mcommit cbdc59b2f493ab53f76edc4ac0a44c16988babe0[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Sun May 3 21:22:00 2026 +0100
+
+    Introduce Parameter Object
+
+[33mcommit 0f8af5d573c9391988d8bbc98d36a974be117005[m[33m ([m[1;31morigin/UnitTests_110764[m[33m, [m[1;32mUnitTests_110764[m[33m)[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Sun May 3 16:15:50 2026 +0100
+
+    Add coverage report #22
+
+[33mcommit 452cd90470cf05ffb60df98f15f4dee22837ec73[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Sun May 3 16:06:20 2026 +0100
+
+    Add unit tests for PdfExport #22
+
+[33mcommit 386c1f86c7b114011d7fe8d833c2e1e992d28a28[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Sun May 3 15:57:33 2026 +0100
+
+    Add unit tests for Compass #22
+
+[33mcommit af033c52f7fc81a7de9d523c8864f5ca32560415[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Sun May 3 15:57:19 2026 +0100
+
+    Add unit tests for Compass #22
+
+[33mcommit 3e596d6f09402f6fe24b7127d6437963813d593a[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Sun May 3 15:55:04 2026 +0100
+
+    Add unit tests for Frigate #22
+
+[33mcommit 5fc78b4fe36ed5027c8363caa5a0c0ea8b468d05[m[33m ([m[1;31morigin/feature/export-jogadas-pdf[m[33m, [m[1;32mfeature/export-jogadas-pdf[m[33m)[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Mon Mar 9 18:26:22 2026 +0000
+
+    add commons-logging dependency required by pdfbox
+
+[33mcommit f81ce61a1f9c02ae99d8786bf605c60d39ad28fa[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Mon Mar 9 18:00:39 2026 +0000
+
+    create PdfExportService class
+
+[33mcommit 7d491f8652b9bcac0a008fd83fcf4e274ad18c77[m
+Author: Dinis Oliveira <droao2@iscte-iul.pt>
+Date:   Mon Mar 9 17:41:31 2026 +0000
+
+    add PDFBox dependency for move history export
+
+[33mcommit 2b134943b0943c6baeef4198a6b62f1a9057b382[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/IGE-123025[m[33m, [m[1;31morigin/IGE-123011[m[33m, [m[1;31morigin/IGE-110764[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: jcjesus45 <jc.amaro.jesus@gmail.com>
+Date:   Thu Mar 5 15:36:41 2026 +0000
+
+    Commit inicial
