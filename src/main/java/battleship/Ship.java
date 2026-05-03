@@ -128,6 +128,7 @@ public abstract class Ship implements IShip
 		return Objects.requireNonNull(pos, "Ship's position must not be null");
 	}
 
+
 	/**
 	 * Gets category.
 	 *
