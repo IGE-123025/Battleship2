@@ -55,5 +55,15 @@ profile:
 # failThreshold: 0
 
 #inspections:
- #### enabled: true
+#  - id: ClassTooComplex
+#    enabled: true
+#    severity: ERROR
+#  - id: OverlyComplexMethod
+#    enabled: true
+#    severity: ERROR
+
+# definição dos valores máximos para cada inspeção
+#thresholds:
+#  ClassTooComplex: 1
+#  OverlyComplexMethod: 1
 

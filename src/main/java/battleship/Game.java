@@ -5,13 +5,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.apache.commons.lang3.time.StopWatch;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 
+
 import java.time.LocalDateTime;
-import java.time.Duration;
 import java.util.*;
 
 public class Game implements IGame
@@ -248,14 +249,9 @@ public class Game implements IGame
 		Random random = new Random(System.currentTimeMillis());
 
 		Set<IPosition> usablePositions = new HashSet<IPosition>();
-		for (int r = 0; r < BOARD_SIZE; r++)
-			for (int c = 0; c < BOARD_SIZE; c++)
-				usablePositions.add(new Position(r, c));
+        setUsablePositions(usablePositions);
 
-		this.myFleet.getSunkShips().forEach(ship -> usablePositions.removeAll(ship.getAdjacentPositions()));
-		this.alienMoves.forEach(move ->  usablePositions.removeAll(move.getShots()));
-
-		List<IPosition> candidateShots = new ArrayList<>(usablePositions);
+        List<IPosition> candidateShots = new ArrayList<>(usablePositions);
 
 		// Criar lista para armazenar os tiros
 		List<IPosition> shots = new ArrayList<IPosition>();
@@ -264,33 +260,10 @@ public class Game implements IGame
 		// Gerar coordenadas únicas até atingir o número definido por NUMBER_SHOTS
 
 		IPosition newShot = null;
-		if (candidateShots.size() >= Game.NUMBER_SHOTS)
-			while (shots.size() < Game.NUMBER_SHOTS) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-		else {
-			while (shots.size() < candidateShots.size()) {
-				newShot = candidateShots.get(random.nextInt(candidateShots.size()));
-				if (!shots.contains(newShot))
-					shots.add(newShot);
-			}
-			while (shots.size() < Game.NUMBER_SHOTS)
-				shots.add(newShot);
-		}
+        randomShotGenerator(candidateShots, shots, newShot, random);
 
-		switch (Messages.LOCALE().getLanguage()) {
-            case "en":
-                System.out.print("burst ");
-                break;
-            case "pt":
-                System.out.println("rajada ");
-                break;
-            default:
-                System.out.println("rajada ");
-        }
-		for (IPosition shot : shots)
+        shotMessageGenerator();
+        for (IPosition shot : shots)
 			System.out.print(shot + " ");
 		System.out.println();
 
@@ -300,8 +273,49 @@ public class Game implements IGame
 		return Game.jsonShots(shots);
 	}
 
+    // Extracted Methods from randomEnemyFire
+    private static void shotMessageGenerator() {
+        switch (Messages.LOCALE().getLanguage()) {
+            case "en":
+                System.out.print("burst ");
+                break;
+            case "pt":
+                System.out.println("rajada ");
+                break;
+            default:
+                System.out.println("rajada ");
+        }
+    }
 
-	/**
+    private static void randomShotGenerator(List<IPosition> candidateShots, List<IPosition> shots, IPosition newShot, Random random) {
+        if (candidateShots.size() >= Game.NUMBER_SHOTS)
+            while (shots.size() < Game.NUMBER_SHOTS) {
+                newShot = candidateShots.get(random.nextInt(candidateShots.size()));
+                if (!shots.contains(newShot))
+                    shots.add(newShot);
+            }
+        else {
+            while (shots.size() < candidateShots.size()) {
+                newShot = candidateShots.get(random.nextInt(candidateShots.size()));
+                if (!shots.contains(newShot))
+                    shots.add(newShot);
+            }
+            while (shots.size() < Game.NUMBER_SHOTS)
+                shots.add(newShot);
+        }
+    }
+
+    private void setUsablePositions(Set<IPosition> usablePositions) {
+        for (int r = 0; r < BOARD_SIZE; r++)
+            for (int c = 0; c < BOARD_SIZE; c++)
+                usablePositions.add(new Position(r, c));
+
+        this.myFleet.getSunkShips().forEach(ship -> usablePositions.removeAll(ship.getAdjacentPositions()));
+        this.alienMoves.forEach(move ->  usablePositions.removeAll(move.getShots()));
+    }
+
+
+    /**
 	 * Reads and processes the enemy fire input from the specified scanner.
 	 * The method expects input describing positions for enemy shots. It verifies
 	 * the format, ensures the correct number of positions are provided, and then fires
@@ -327,22 +341,8 @@ public class Game implements IGame
 		Scanner inputScanner = new Scanner(input);
 		while (shots.size() < NUMBER_SHOTS && inputScanner.hasNext()) {
 			// Lê a próxima parte e constrói uma posição
-			String token = inputScanner.next();
-
-			if (token.matches("[A-Za-z]")) {
-				// Caso seja somente uma coluna ("A", "B", etc.), esperar o próximo número
-				if (inputScanner.hasNextInt()) {
-					int row = inputScanner.nextInt();
-					shots.add(new Position(token.toUpperCase().charAt(0), row));
-				} else {
-					throw new IllegalArgumentException("Posição incompleta! A coluna '" + token + "' não é seguida por uma linha.");
-				}
-			} else {
-				// Caso o token já contenha a coluna e a linha juntas (ex.: "A3")
-				Scanner singleScanner = new Scanner(token);
-				shots.add(Tasks.readClassicPosition(singleScanner));
-			}
-		}
+            positionConstructor(inputScanner, shots);
+        }
 
 		if (shots.size() != NUMBER_SHOTS) {
 			throw new IllegalArgumentException("Você deve inserir exatamente " + NUMBER_SHOTS + " posições!");
@@ -353,7 +353,25 @@ public class Game implements IGame
 		return Game.jsonShots(shots);
 	}
 
-	/**
+    private static void positionConstructor(Scanner inputScanner, List<IPosition> shots) {
+        String token = inputScanner.next();
+
+        if (token.matches("[A-Za-z]")) {
+            // Caso seja somente uma coluna ("A", "B", etc.), esperar o próximo número
+            if (inputScanner.hasNextInt()) {
+                int row = inputScanner.nextInt();
+                shots.add(new Position(token.toUpperCase().charAt(0), row));
+            } else {
+                throw new IllegalArgumentException("Posição incompleta! A coluna '" + token + "' não é seguida por uma linha.");
+            }
+        } else {
+            // Caso o token já contenha a coluna e a linha juntas (ex.: "A3")
+            Scanner singleScanner = new Scanner(token);
+            shots.add(Tasks.readClassicPosition(singleScanner));
+        }
+    }
+
+    /**
 	 * Fires a set of shots during a player's move. Each shot is resolved and
 	 * consolidated into a move, which is processed and added to the list of alien moves.
 	 * The method ensures exactly {@code NUMBER_SHOTS} shots are fired, validates
