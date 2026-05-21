@@ -32,6 +32,9 @@
 		<allure.version>2.31.0</allure.version>
 
 		<jetbrains.annotations.version>26.1.0</jetbrains.annotations.version>
+
+        <maven.site.version>3.12.1</maven.site.version>
+        <maven.javadoc.version>3.6.3</maven.javadoc.version>
 	</properties>
 
 	<dependencies>
@@ -166,6 +169,41 @@
 					</includes>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.12.1</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+            </plugin>
 		</plugins>
 	</build>
+    <reporting>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.version}</version>
+
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+
+                <configuration>
+                    <destDir>apidocs</destDir>
+                </configuration>
+
+            </plugin>
+
+        </plugins>
+    </reporting>
 </project>
