@@ -168,4 +168,53 @@ public class FrigateTest {
 		assertThrows(NullPointerException.class, () -> new Frigate(Compass.NORTH, null),
 				"Error: NullPointerException should be thrown for null position.");
 	}
+
+	@Test
+	@DisplayName("Constructor with SOUTH bearing creates vertical positions")
+	void testConstructorSouth() {
+		Frigate frigate = new Frigate(Compass.SOUTH, new Position(5, 5));
+
+		List<IPosition> positions = frigate.getPositions();
+
+		assertEquals(4, positions.size());
+		assertEquals(new Position(5, 5), positions.get(0));
+		assertEquals(new Position(6, 5), positions.get(1));
+		assertEquals(new Position(7, 5), positions.get(2));
+		assertEquals(new Position(8, 5), positions.get(3));
+	}
+
+	@Test
+	@DisplayName("Frigate occupies one of its positions")
+	void testOccupiesExistingPosition() {
+		assertTrue(frigate.occupies(new Position(5, 5)));
+		assertTrue(frigate.occupies(new Position(6, 5)));
+	}
+
+	@Test
+	@DisplayName("Frigate does not occupy outside position")
+	void testDoesNotOccupyOtherPosition() {
+		assertFalse(frigate.occupies(new Position(0, 0)));
+	}
+
+	@Test
+	@DisplayName("Frigate can be shot at occupied position")
+	void testShootOccupiedPosition() {
+		Position target = new Position(5, 5);
+
+		frigate.shoot(target);
+
+		assertTrue(frigate.getPositions().get(0).isHit());
+	}
+
+	@Test
+	@DisplayName("Frigate is too close to adjacent position")
+	void testTooCloseToAdjacentPosition() {
+		assertTrue(frigate.tooCloseTo(new Position(4, 5)));
+	}
+
+	@Test
+	@DisplayName("Frigate is not too close to distant position")
+	void testNotTooCloseToDistantPosition() {
+		assertFalse(frigate.tooCloseTo(new Position(0, 0)));
+	}
 }
