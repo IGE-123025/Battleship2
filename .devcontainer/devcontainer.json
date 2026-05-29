@@ -1,0 +1,27 @@
+{
+  "name": "Battleship Java DevContainer",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-maven",
+        "ms-azuretools.vscode-docker",
+        "github.vscode-github-actions",
+        "yzhang.markdown-all-in-one"
+      ]
+    },
+    "jetbrains": {
+      "plugins": [
+        "Docker",
+        "org.jetbrains.plugins.github",
+        "org.intellij.plugins.markdown"
+      ]
+    }
+  },
+  "postCreateCommand": "mvn clean compile",
+  "remoteUser": "vscode"
+}
