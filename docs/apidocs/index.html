@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship 2.0</title>
+
+    ```
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height:1.6;
+            background:#f4f7fb;
+            color:#333;
+        }
+
+        header{
+            background:linear-gradient(135deg,#0f4c81,#1f6fb2);
+            color:white;
+            text-align:center;
+            padding:80px 20px;
+        }
+
+        header h1{
+            font-size:3rem;
+            margin-bottom:15px;
+        }
+
+        header p{
+            font-size:1.2rem;
+            max-width:800px;
+            margin:auto;
+        }
+
+        .buttons{
+            margin-top:30px;
+        }
+
+        .buttons a{
+            display:inline-block;
+            margin:10px;
+            padding:12px 24px;
+            border-radius:8px;
+            text-decoration:none;
+            background:white;
+            color:#0f4c81;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .buttons a:hover{
+            transform:translateY(-3px);
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .container{
+            max-width:1200px;
+            margin:auto;
+            padding:40px 20px;
+        }
+
+        .card{
+            background:white;
+            padding:30px;
+            margin-bottom:25px;
+            border-radius:12px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        h2{
+            color:#0f4c81;
+            margin-bottom:15px;
+        }
+
+        .members{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+            gap:20px;
+        }
+
+        .member{
+            background:#eef5fc;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:15px;
+        }
+
+        th{
+            background:#0f4c81;
+            color:white;
+        }
+
+        td,th{
+            padding:12px;
+            border:1px solid #ddd;
+            text-align:left;
+        }
+
+        code{
+            background:#eee;
+            padding:2px 6px;
+            border-radius:4px;
+        }
+
+        pre{
+            background:#1e1e1e;
+            color:#dcdcdc;
+            padding:20px;
+            overflow:auto;
+            border-radius:10px;
+            margin-top:15px;
+        }
+
+        ul{
+            margin-left:25px;
+        }
+
+        footer{
+            background:#0f4c81;
+            color:white;
+            text-align:center;
+            padding:25px;
+            margin-top:40px;
+        }
+
+        @media(max-width:768px){
+
+            header h1{
+                font-size:2.2rem;
+            }
+
+            .buttons a{
+                display:block;
+                margin:10px auto;
+                width:250px;
+            }
+        }
+    </style>
+    ```
+
+</head>
+<body>
+
+<header>
+    <h1>⚓ Battleship 2.0</h1>
+
+    ```
+    <p>
+        A modern implementation of the classic naval warfare game developed as part of
+        Software Engineering at ISCTE-IUL.
+    </p>
+
+    <div class="buttons">
+        <a href="https://github.com/britoeabreu/Battleship2" target="_blank">GitHub Repository</a>
+        <a href="https://youtu.be/YwOjc6ZX_Ao" target="_blank">YouTube Demo</a>
+        <a href="./apidocs/" target="_blank">JavaDoc</a>
+    </div>
+    ```
+
+</header>
+
+<div class="container">
+
+    ```
+    <section class="card">
+        <h2>📖 Project Overview</h2>
+
+        <p>
+            Battleship 2.0 is an educational Java project that demonstrates
+            Object-Oriented Programming, Software Quality practices,
+            unit testing, CI/CD pipelines and software architecture principles.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>👥 Team Members</h2>
+
+        <div class="members">
+
+            <div class="member">
+                <strong>Dinis Oliveira</strong>
+                <br>
+                Nº 110764
+            </div>
+
+            <div class="member">
+                <strong>João Jesus</strong>
+                <br>
+                Nº 123025
+            </div>
+
+            <div class="member">
+                <strong>Ricardo Cabrito</strong>
+                <br>
+                Nº 122999
+            </div>
+
+            <div class="member">
+                <strong>Tiago Reinolds</strong>
+                <br>
+                Nº 123011
+            </div>
+
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>✨ Key Features</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Grid System</td>
+                <td>Flexible NxN board generation</td>
+                <td>✅</td>
+            </tr>
+
+            <tr>
+                <td>Ship Varieties</td>
+                <td>XVII Century naval fleet</td>
+                <td>✅</td>
+            </tr>
+
+            <tr>
+                <td>AI Opponent</td>
+                <td>Heuristic targeting system</td>
+                <td>🚧</td>
+            </tr>
+
+            <tr>
+                <td>Network Play</td>
+                <td>Socket-based multiplayer</td>
+                <td>❌</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+    <section class="card">
+        <h2>🛠 Technical Stack</h2>
+
+        <ul>
+            <li>Java 21</li>
+            <li>Maven</li>
+            <li>JUnit 5</li>
+            <li>Log4j2</li>
+            <li>SQLite</li>
+            <li>Jackson</li>
+            <li>GitHub Actions</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>🚀 Installation</h2>
+        ```
+
+        <pre>
+git clone https://github.com/britoeabreu/Battleship2.git
+
+cd Battleship2
+
+mvn clean package
+
+java -jar target/BattleshipGamePlayer-2.0.jar
+</pre>
+
+        ```
+    </section>
+
+    <section class="card">
+        <h2>🧪 Testing</h2>
+        ```
+
+        <pre>
+mvn test
+</pre>
+
+        ```
+        <p>
+            Unit tests are automatically executed through GitHub Actions
+            on every push and pull request.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>🗺 Roadmap</h2>
+
+        <ul>
+            <li>✅ Grid implementation</li>
+            <li>✅ Ship placement validation</li>
+            <li>⬜ Sound effects</li>
+            <li>⬜ Fog of War</li>
+            <li>⬜ Multiplayer integration</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>📚 Documentation</h2>
+
+        <p>
+            The complete API documentation is available through the JavaDoc section.
+        </p>
+
+        <p>
+            <a href="./apidocs/">Open JavaDoc Documentation</a>
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>⚙ Continuous Integration</h2>
+
+        <p>
+            GitHub Actions automatically:
+        </p>
+
+        <ul>
+            <li>Configures Java 21</li>
+            <li>Builds the project</li>
+            <li>Runs all unit tests</li>
+            <li>Validates pull requests</li>
+        </ul>
+    </section>
+    ```
+
+</div>
+
+<footer>
+    <p>
+        Battleship 2.0 • Software Engineering • ISCTE-IUL
+    </p>
+</footer>
+
+</body>
+</html>
