@@ -39,11 +39,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:5.1.0.4751:sonar \
-          -Dsonar.projectKey=IGE-123025_Battleship2 \
-          -Dsonar.organization=ige-123025 \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.token=${SONAR_TOKEN}
+          mvn sonar:sonar -Dsonar.token=${SONAR_TOKEN}
           
   docker:
     needs: build-test-analyze
