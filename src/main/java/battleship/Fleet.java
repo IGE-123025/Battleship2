@@ -118,7 +118,7 @@ public class Fleet implements IFleet
 
 		List<IShip> shipsLike = new ArrayList<>();
 		for (IShip s : ships)
-			if (s.getCategory().equals(category))
+			if (s.getCategory().equalsIgnoreCase(category))
 				shipsLike.add(s);
 
 		return shipsLike;
