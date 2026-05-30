@@ -35,7 +35,9 @@
 
         <maven.site.version>3.12.1</maven.site.version>
         <maven.javadoc.version>3.6.3</maven.javadoc.version>
-	</properties>
+
+        <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
+    </properties>
 
 	<dependencies>
 		<!-- JUnit Jupiter API -->
@@ -179,6 +181,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.6.3</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar-maven-plugin.version}</version>
             </plugin>
 		</plugins>
 	</build>
