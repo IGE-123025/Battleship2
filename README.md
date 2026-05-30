@@ -204,6 +204,10 @@ não foi a esperada, resultando numa pobre percentagem de Coverage para o Branch
 
 ---
 
+## Esclarecimentos face à realização da ficha 6
+Durante a realização dos testes necessários para a conclusão da ficha, deparámo-nos com a incompatibilidade entre a versão dos computadores disponibilizados pelas salas e a versão por nós utilizada, o que gerou um entrave na execução dos mesmos. Como tal, para não impedir a realização dos mesmos assumimos que o teste tinha corrido bem, com supervisionamento do professor durante a aula.
+Além disso, durante a aula, o meu computador, Tiago Reinolds 123011, devido a alguma gralha que não foi possível identificar com o professor em aula, apresentava incompatibilidade na ligação entre o IntelliJ e o Docker o que me impossibilitou a realização parcial da ficha. Contudo, acompanhei o João, 123025, na realização da mesma para tomar conhecimento das ações que estavam a ser tomadas face à execuçáo da ficha.
+
 ## Integração Contínua (CI)
 
 Este projeto utiliza GitHub Actions para executar automaticamente os testes unitários sempre que é feito um push ou um pull request.
