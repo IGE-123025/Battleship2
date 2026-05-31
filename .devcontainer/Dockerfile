@@ -1,5 +1,3 @@
-FROM maven:3.9.9-eclipse-temurin-21
+FROM mcr.microsoft.com/devcontainers/java:21
 
-WORKDIR /workspace
-
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git maven docker.io

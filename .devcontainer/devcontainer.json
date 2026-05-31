@@ -1,19 +1,16 @@
 {
   "name": "Battleship DevContainer",
-
   "build": {
     "dockerfile": "Dockerfile"
   },
-
-  "workspaceFolder": "/workspace",
-
   "customizations": {
     "vscode": {
       "extensions": [
+        "vscjava.vscode-java-pack",
         "ms-azuretools.vscode-docker",
-        "github.vscode-github-actions",
-        "vscjava.vscode-java-pack"
+        "github.vscode-github-actions"
       ]
     }
-  }
+  },
+  "postCreateCommand": "mvn -version && java -version"
 }
