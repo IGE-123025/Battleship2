@@ -13,7 +13,7 @@ version: "1.0"
 
 #Specify inspection profile for code analysis
 profile:
-  name: qodana.recommended
+  name: qodana.starter
 
 #Enable inspections
 #include:
@@ -25,6 +25,7 @@ profile:
 #    paths:
 #      - <path/where/not/run/inspection>
 
+projectJDK: "25" #(Applied in CI/CD pipeline)
 
 # projectJDK: "23" #(Applied in CI/CD pipeline)
 
@@ -50,6 +51,7 @@ profile:
 #    total: 50
 
 #Specify Qodana linter for analysis (Applied in CI/CD pipeline)
+linter: jetbrains/qodana-jvm:2025.3
 #linter: jetbrains/qodana-jvm:2025.2
 
 # failThreshold: 0
